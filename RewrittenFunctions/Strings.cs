@@ -9,13 +9,13 @@ namespace RewrittenFunctions
     public static class Strings
     {
         //This makes inining possible
-        public static bool EndsWith(this string input, string end)
+        public static bool EndsWithRF(this string input, string value)
         {
-            if (end.Length > input.Length)
+            if (value.Length > input.Length)
             {
-                throw new ArgumentException("The end-string can't be longer than the string to check");
+                throw new ArgumentException("The value-string can't be longer than the string to check");
             }
-            return EndsWithFull(input, end);
+            return EndsWithFull(input, value);
         }
 
         private static bool EndsWithFull(string input, string end)
@@ -32,21 +32,40 @@ namespace RewrittenFunctions
             return true;
         }
 
-        public static bool StartsWith(string input, string start)
+        public static bool StartsWithRF(this string input, string value)
         {
-            if (start.Length > input.Length)
+            if (value.Length > input.Length)
             {
-                throw new ArgumentException("The start-string can't be longer than the string to check");
+                throw new ArgumentException("The value-string can't be longer than the string to check");
             }
+            return StartsWithFull(input, value);
+        }
 
-            for (int i = 0; i < start.Length; i++)
+        private static bool StartsWithFull(string input, string value)
+        {
+            for (int i = 0; i < value.Length; i++)
             {
-                if (input[i] != start[i])
+                if (input[i] != value[i])
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        public static bool ContainsIgnoreCaseRF(this string input, string value)
+        {
+            return input.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        public static bool ContainsIgnoreCaseRF(this string input, string value, StringComparison stringComparison)
+        {
+            return input.IndexOf(value, stringComparison) >= 0;
+        }
+
+        public static bool IsFilledRF(this string input)
+        {
+            return !(input?.Length > 0);
         }
     }
 }
