@@ -14,6 +14,46 @@ namespace RewrittenFunctions
         #region Methods
 
         /// <summary>
+        /// Convert a binary string to a decimal number
+        /// </summary>
+        /// <param name="binary">Binary-String</param>
+        /// <returns></returns>
+        public static int BinaryToDecimal(this string binary)
+        {
+            int result = 0;
+
+            int currentNumber;
+
+            for (int i = binary.Length; i >= 0; i--)
+            {
+                currentNumber = binary[i] - '0';
+                if (currentNumber < 0 || currentNumber > 1)
+                {
+                    throw new Exception("The input string is not a valid binary number");
+                }
+
+                result += Math.PowRF(currentNumber, binary.Length - i);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Calculate the acad. faculty of the given value
+        /// </summary>
+        /// <param name="value">Value</param>
+        /// <returns></returns>
+        public static int FacultyRF(this int value)
+        {
+            int result = 1;
+            for (int i = 2; i < value + 1; i++)
+            {
+                result *= i;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Modulo calculation for a large integer that would need BigInt-Type
         /// </summary>
         /// <param name="s">Integer-Number</param>
@@ -27,6 +67,16 @@ namespace RewrittenFunctions
                 res = (res * 10 + s[j] - '0') % mod;
             }
             return res;
+        }
+
+        public static int PowRF(int base_value, int exponent)
+        {
+            int result = 1;
+            for (int i = 0; i < exponent; i++)
+            {
+                result *= base_value;
+            }
+            return result;
         }
 
         /// <summary>

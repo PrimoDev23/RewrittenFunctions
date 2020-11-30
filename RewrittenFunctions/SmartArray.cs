@@ -220,6 +220,18 @@ namespace RewrittenFunctions
             return -1;
         }
 
+        /// <summary>
+        /// Swap to elements in the SmartArray
+        /// </summary>
+        /// <param name="firstIndex">Index of the first element</param>
+        /// <param name="secondIndex">Index of the second Element</param>
+        public void Swap(int firstIndex, int secondIndex)
+        {
+            T item = sourceArray[firstIndex];
+            sourceArray[firstIndex] = sourceArray[secondIndex];
+            sourceArray[secondIndex] = item;
+        }
+
         #endregion Methods
     }
 }
