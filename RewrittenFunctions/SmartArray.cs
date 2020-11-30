@@ -25,7 +25,7 @@ namespace RewrittenFunctions
         //Minimum size for better perf with ArrayPool
         private const int minSize = 1000;
 
-        private bool minSizeIgnored = false;
+        private readonly bool minSizeIgnored = false;
 
         #endregion Properties + Fields
 

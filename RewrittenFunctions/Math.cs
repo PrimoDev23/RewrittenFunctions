@@ -89,7 +89,7 @@ namespace RewrittenFunctions
         {
             number = 0;
 
-            if (s == null || s.Length == 0)
+            if (!s.IsFilledRF())
             {
                 return false;
             }
