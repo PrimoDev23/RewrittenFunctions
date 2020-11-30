@@ -78,6 +78,15 @@ namespace RewrittenFunctions
 
         #region Methods
 
+        /// <summary>
+        /// Get the Span for this SmartArray
+        /// </summary>
+        /// <returns></returns>
+        public Span<T> AsSpan()
+        {
+            return sourceArray.AsSpan();
+        }
+
         public SmartArray<T> Clone()
         {
             SmartArray<T> clone = new SmartArray<T>(sourceArray.Length, minSizeIgnored);
@@ -96,6 +105,23 @@ namespace RewrittenFunctions
         /// <param name="item">Item to check for</param>
         /// <returns></returns>
         public bool Contains(T item)
+        {
+            for (int i = 0; i < sourceArray.Length; i++)
+            {
+                if (sourceArray[i].Equals(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if the SmartArray contains a specific item (ref prevents copying value)
+        /// </summary>
+        /// <param name="item">Item to check for</param>
+        /// <returns></returns>
+        public bool Contains(ref T item)
         {
             for (int i = 0; i < sourceArray.Length; i++)
             {
@@ -133,11 +159,56 @@ namespace RewrittenFunctions
         }
 
         /// <summary>
+        /// Get the index of a specific item (ref prevents copying value)
+        /// </summary>
+        /// <param name="item">Item to check for</param>
+        /// <returns></returns>
+        public T FirstOrDefault(ref T item)
+        {
+            for (int i = 0; i < sourceArray.Length; i++)
+            {
+                if (sourceArray[i].Equals(item))
+                {
+                    return sourceArray[i];
+                }
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Get a span of the selected range
+        /// </summary>
+        /// <param name="start">Start-Index</param>
+        /// <param name="length">Length of the range</param>
+        /// <returns></returns>
+        public Span<T> getRangeSpan(int start, int length)
+        {
+            return sourceArray.AsSpan().Slice(start, length);
+        }
+
+        /// <summary>
         /// Get the first matching element or the default value
         /// </summary>
         /// <param name="item">Item to check for</param>
         /// <returns></returns>
         public int IndexOf(T item)
+        {
+            for (int i = 0; i < sourceArray.Length; i++)
+            {
+                if (sourceArray[i].Equals(item))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Get the first matching element or the default value (ref prevents copying value)
+        /// </summary>
+        /// <param name="item">Item to check for</param>
+        /// <returns></returns>
+        public int IndexOf(ref T item)
         {
             for (int i = 0; i < sourceArray.Length; i++)
             {
