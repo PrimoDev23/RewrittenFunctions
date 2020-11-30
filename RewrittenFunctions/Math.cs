@@ -11,7 +11,31 @@ namespace RewrittenFunctions
     /// </summary>
     public static class Math
     {
-        public static bool TryParseToInt(this string s, out Int32 number)
+        #region Methods
+
+        /// <summary>
+        /// Modulo calculation for a large integer that would need BigInt-Type
+        /// </summary>
+        /// <param name="s">Integer-Number</param>
+        /// <param name="mod">Modulo number</param>
+        /// <returns></returns>
+        public static int ModLongIntRF(this string s, int mod)
+        {
+            int res = 0;
+            for (int j = 0; j < s.Length; j++)
+            {
+                res = (res * 10 + s[j] - '0') % mod;
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Fast TryParse for Int32
+        /// </summary>
+        /// <param name="s">String to parse</param>
+        /// <param name="number">Parsed Int32</param>
+        /// <returns></returns>
+        public static bool TryParseToIntRF(this string s, out Int32 number)
         {
             number = 0;
 
@@ -55,5 +79,7 @@ namespace RewrittenFunctions
 
             return true;
         }
+
+        #endregion Methods
     }
 }
