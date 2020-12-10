@@ -87,6 +87,10 @@ namespace RewrittenFunctions
             return sourceArray.AsSpan();
         }
 
+        /// <summary>
+        /// Clone the SmartArray
+        /// </summary>
+        /// <returns>Clone</returns>
         public SmartArray<T> Clone()
         {
             SmartArray<T> clone = new SmartArray<T>(sourceArray.Length, minSizeIgnored);
@@ -139,40 +143,6 @@ namespace RewrittenFunctions
         public void Dispose()
         {
             ArrayPool<T>.Shared.Return(sourceArray, true);
-        }
-
-        /// <summary>
-        /// Get the index of a specific item
-        /// </summary>
-        /// <param name="item">Item to check for</param>
-        /// <returns></returns>
-        public T FirstOrDefault(T item)
-        {
-            for (int i = 0; i < sourceArray.Length; i++)
-            {
-                if (sourceArray[i].Equals(item))
-                {
-                    return sourceArray[i];
-                }
-            }
-            return default;
-        }
-
-        /// <summary>
-        /// Get the index of a specific item (ref prevents copying value)
-        /// </summary>
-        /// <param name="item">Item to check for</param>
-        /// <returns></returns>
-        public T FirstOrDefault(ref T item)
-        {
-            for (int i = 0; i < sourceArray.Length; i++)
-            {
-                if (sourceArray[i].Equals(item))
-                {
-                    return sourceArray[i];
-                }
-            }
-            return default;
         }
 
         /// <summary>
