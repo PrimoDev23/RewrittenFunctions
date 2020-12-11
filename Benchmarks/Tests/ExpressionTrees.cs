@@ -31,10 +31,10 @@ namespace Benchmarks.Tests
         [GlobalSetup]
         public void Setup()
         {
-            Getter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetGetterProperty("TestProperty");
-            Setter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetSetterProperty("TestProperty");
-            FGetter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetGetterField("TestField");
-            FSetter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetSetterField("TestField");
+            Getter = RewrittenFunctions.ExpressionTree<TestModel, string>.GetGetterProperty("TestProperty");
+            Setter = RewrittenFunctions.ExpressionTree<TestModel, string>.GetSetterProperty("TestProperty");
+            FGetter = RewrittenFunctions.ExpressionTree<TestModel, string>.GetGetterField("TestField");
+            FSetter = RewrittenFunctions.ExpressionTree<TestModel, string>.GetSetterField("TestField");
             info = model.GetType().GetProperty("TestProperty");
             finfo = model.GetType().GetField("TestField");
         }

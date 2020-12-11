@@ -10,18 +10,33 @@ namespace RewrittenFunctions
 {
     public static class ExpressionTree<T, T2>
     {
+        /// <summary>
+        /// Get the getter method for a property
+        /// </summary>
+        /// <param name="propertyName">Name of the property</param>
+        /// <returns>Getter method</returns>
         public static Func<T, T2> GetGetterProperty(string propertyName)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "param");
             return Expression.Lambda<Func<T, T2>>(Expression.Property(param, propertyName), param).CompileFast();
         }
 
+        /// <summary>
+        /// Get the getter method for a field
+        /// </summary>
+        /// <param name="fieldName">Name of the field</param>
+        /// <returns>Getter method</returns>
         public static Func<T, T2> GetGetterField(string fieldName)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "param");
             return Expression.Lambda<Func<T, T2>>(Expression.Field(param, fieldName), param).CompileFast();
         }
 
+        /// <summary>
+        /// Get the setter method for a property
+        /// </summary>
+        /// <param name="propertyName">Name of the property</param>
+        /// <returns>Setter method</returns>
         public static Action<T, T2> GetSetterProperty(string propertyName)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "param");
@@ -33,6 +48,11 @@ namespace RewrittenFunctions
             return Expression.Lambda<Action<T, T2>>(assign, param, newValue).CompileFast();
         }
 
+        /// <summary>
+        /// Get the setter method for a field
+        /// </summary>
+        /// <param name="fieldName">Name of the field</param>
+        /// <returns>Setter method</returns>
         public static Action<T, T2> GetSetterField(string fieldName)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "param");
