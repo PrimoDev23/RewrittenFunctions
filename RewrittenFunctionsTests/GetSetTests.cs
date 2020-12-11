@@ -21,7 +21,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestProperty = "Test"
                 };
 
-                var Getter = ExpressionTrees.GetSet<TestModel, string>.GetGetterProperty("TestProperty");
+                var Getter = ExpressionTree<TestModel, string>.GetGetterProperty("TestProperty");
                 string value = Getter(model);
 
                 Assert.IsTrue(value == model.TestProperty);
@@ -42,7 +42,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestField = "Test"
                 };
 
-                var Getter = ExpressionTrees.GetSet<TestModel, string>.GetGetterField("TestField");
+                var Getter = ExpressionTree<TestModel, string>.GetGetterField("TestField");
                 string value = Getter(model);
 
                 Assert.IsTrue(value == model.TestField);
@@ -63,7 +63,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestProperty = "Test"
                 };
 
-                var Setter = ExpressionTrees.GetSet<TestModel, string>.GetSetterProperty("TestProperty");
+                var Setter = ExpressionTree<TestModel, string>.GetSetterProperty("TestProperty");
                 Setter(model, "newValue");
 
                 Assert.IsTrue(model.TestProperty == "newValue");
@@ -84,12 +84,12 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestField = "Test"
                 };
 
-                var Setter = ExpressionTrees.GetSet<TestModel, string>.GetSetterField("TestField");
+                var Setter = ExpressionTree<TestModel, string>.GetSetterField("TestField");
                 Setter(model, "newValue");
 
                 Assert.IsTrue(model.TestField == "newValue");
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.Fail();
             }

@@ -23,14 +23,20 @@ namespace Benchmarks.Tests
 
         private Func<TestModel, string> Getter;
         private Action<TestModel, string> Setter;
+        private Func<TestModel, string> FGetter;
+        private Action<TestModel, string> FSetter;
         private PropertyInfo info;
+        private FieldInfo finfo;
 
         [GlobalSetup]
         public void Setup()
         {
             Getter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetGetterProperty("TestProperty");
             Setter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetSetterProperty("TestProperty");
+            FGetter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetGetterField("TestField");
+            FSetter = RewrittenFunctions.ExpressionTrees.GetSet<TestModel, string>.GetSetterField("TestField");
             info = model.GetType().GetProperty("TestProperty");
+            finfo = model.GetType().GetField("TestField");
         }
 
         [Benchmark]
@@ -66,6 +72,42 @@ namespace Benchmarks.Tests
             for (int i = 0; i < 100; i++)
             {
                 Setter(model, i.ToString());
+            }
+        }
+
+        [Benchmark]
+        public void FieldReflectionGetter()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                finfo.GetValue(model);
+            }
+        }
+
+        [Benchmark]
+        public void FieldExpTreeGetter()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                FGetter(model);
+            }
+        }
+
+        [Benchmark]
+        public void FieldReflectionSetter()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                finfo.SetValue(model, i.ToString());
+            }
+        }
+
+        [Benchmark]
+        public void FieldExpTreeSetter()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                FSetter(model, i.ToString());
             }
         }
     }
