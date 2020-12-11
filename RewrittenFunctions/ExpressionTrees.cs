@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FastExpressionCompiler.LightExpression;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +15,13 @@ namespace RewrittenFunctions
             public static Func<T, T2> GetGetterProperty(string propertyName)
             {
                 ParameterExpression param = Expression.Parameter(typeof(T), "param");
-                return Expression.Lambda<Func<T, T2>>(Expression.Property(param, propertyName), param).Compile();
+                return Expression.Lambda<Func<T, T2>>(Expression.Property(param, propertyName), param).CompileFast();
             }
 
             public static Func<T, T2> GetGetterField(string fieldName)
             {
                 ParameterExpression param = Expression.Parameter(typeof(T), "param");
-                return Expression.Lambda<Func<T, T2>>(Expression.Field(param, fieldName), param).Compile();
+                return Expression.Lambda<Func<T, T2>>(Expression.Field(param, fieldName), param).CompileFast();
             }
 
             public static Action<T, T2> GetSetterProperty(string propertyName)
@@ -32,7 +32,7 @@ namespace RewrittenFunctions
                 MemberExpression property = Expression.Property(param, typeof(T).GetProperty(propertyName));
                 BinaryExpression assign = Expression.Assign(property, newValue);
 
-                return Expression.Lambda<Action<T, T2>>(assign, param, newValue).Compile();
+                return Expression.Lambda<Action<T, T2>>(assign, param, newValue).CompileFast();
             }
 
             public static Action<T, T2> GetSetterField(string fieldName)
@@ -45,7 +45,7 @@ namespace RewrittenFunctions
                 MemberExpression field = Expression.Field(param, info);
                 BinaryExpression assign = Expression.Assign(field, newValue);
 
-                return Expression.Lambda<Action<T, T2>>(assign, param, newValue).Compile();
+                return Expression.Lambda<Action<T, T2>>(assign, param, newValue).CompileFast();
             }
         }
     }
