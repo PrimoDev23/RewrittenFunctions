@@ -13,7 +13,7 @@ namespace RewrittenFunctions
     /// <typeparam name="T">Array-type</typeparam>
     public class SmartArray<T> : IDisposable where T : struct
     {
-        #region Properties + Fields
+        #region Vars
 
         public int Length
         {
@@ -27,7 +27,7 @@ namespace RewrittenFunctions
 
         private readonly bool minSizeIgnored = false;
 
-        #endregion Properties + Fields
+        #endregion Vars
 
         #region Constructors
 

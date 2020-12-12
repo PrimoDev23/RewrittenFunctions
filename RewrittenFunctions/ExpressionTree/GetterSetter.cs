@@ -2,13 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RewrittenFunctions
+namespace RewrittenFunctions.ExpressionTree
 {
-    public static class ExpressionTree<T, T2>
+    /// <summary>
+    /// Basic ExpressionTrees to get getter and setter methods of properies and fields
+    /// This is mostly used to replace reflection
+    /// </summary>
+    /// <typeparam name="T">Containing class type</typeparam>
+    /// <typeparam name="T2">return / set value type</typeparam>
+    public static class GetterSetter<T, T2>
     {
         /// <summary>
         /// Get the getter method for a property

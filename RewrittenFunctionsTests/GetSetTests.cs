@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RewrittenFunctions.ExpressionTree;
 using RewrittenFunctionsTests.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestProperty = "Test"
                 };
 
-                var Getter = ExpressionTree<TestModel, string>.GetGetterProperty("TestProperty");
+                var Getter = GetterSetter<TestModel, string>.GetGetterProperty("TestProperty");
                 string value = Getter(model);
 
                 Assert.IsTrue(value == model.TestProperty);
@@ -42,7 +43,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestField = "Test"
                 };
 
-                var Getter = ExpressionTree<TestModel, string>.GetGetterField("TestField");
+                var Getter = GetterSetter<TestModel, string>.GetGetterField("TestField");
                 string value = Getter(model);
 
                 Assert.IsTrue(value == model.TestField);
@@ -63,7 +64,7 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestProperty = "Test"
                 };
 
-                var Setter = ExpressionTree<TestModel, string>.GetSetterProperty("TestProperty");
+                var Setter = GetterSetter<TestModel, string>.GetSetterProperty("TestProperty");
                 Setter(model, "newValue");
 
                 Assert.IsTrue(model.TestProperty == "newValue");
@@ -84,12 +85,30 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestField = "Test"
                 };
 
-                var Setter = ExpressionTree<TestModel, string>.GetSetterField("TestField");
+                var Setter = GetterSetter<TestModel, string>.GetSetterField("TestField");
                 Setter(model, "newValue");
 
                 Assert.IsTrue(model.TestField == "newValue");
             }
             catch
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
+        public void GetMethodTest()
+        {
+            try
+            {
+                ITest test = new TestModel();
+
+                Func<ITest, string, string> Method = (Func<ITest, string, string>)DynamicMethods<ITest>.GetMethod("TestMethod");
+                string ret = Method(test, "Test");
+
+                Assert.IsTrue(ret == "Test123");
+            }
+            catch (Exception ex)
             {
                 Assert.Fail();
             }
