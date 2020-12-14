@@ -55,7 +55,7 @@ namespace RewrittenFunctions
         /// <returns></returns>
         public static bool IsFilledRF(this string input)
         {
-            return !(input?.Length > 0);
+            return input?.Length > 0;
         }
 
         /// <summary>

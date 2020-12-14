@@ -24,7 +24,7 @@ namespace RewrittenFunctions
         /// </summary>
         /// <param name="binary">Binary-String</param>
         /// <returns></returns>
-        public static int BinaryToDecimal(this string binary)
+        public static int BinaryToDecimal(string binary)
         {
             int result = 0;
 
@@ -52,8 +52,14 @@ namespace RewrittenFunctions
         /// </summary>
         /// <param name="value">Value</param>
         /// <returns></returns>
-        public static int FacultyRF(this int value)
+        public static int FacultyRF(int value)
         {
+            //We can't calculate when using negative numbers
+            if (value < 0)
+            {
+                throw new Exception("Can't calculate faculty of negative numbers");
+            }
+
             int result = 1;
             for (int i = 2; i < value + 1; i++)
             {
@@ -68,7 +74,7 @@ namespace RewrittenFunctions
         /// <param name="s">Integer-Number</param>
         /// <param name="mod">Modulo number</param>
         /// <returns></returns>
-        public static int ModLongIntRF(this string s, int mod)
+        public static int ModLongIntRF(string s, int mod)
         {
             int res = 0;
             for (int j = 0; j < s.Length; j++)
@@ -94,7 +100,7 @@ namespace RewrittenFunctions
         /// <param name="s">String to parse</param>
         /// <param name="number">Parsed Int32</param>
         /// <returns></returns>
-        public static bool TryParseToIntRF(this string s, out Int32 number)
+        public static bool TryParseToIntRF(string s, out Int32 number)
         {
             number = 0;
 
