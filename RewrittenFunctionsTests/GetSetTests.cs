@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RewrittenFunctions.ExTrees.Tests
+namespace RewrittenFunctions.Tests
 {
     [TestClass()]
     public class GetSetTests
@@ -43,8 +43,8 @@ namespace RewrittenFunctions.ExTrees.Tests
                     TestProperty = "Test"
                 };
 
-                var Getter = GetterSetter<object, string>.GetGetterProperty("TestProperty", model.GetType());
-                string value = Getter(model);
+                var Getter = GetterSetter<object, object>.GetGetterProperty("TestProperty", model.GetType());
+                string value = Getter(model).ToString();
 
                 Assert.IsTrue(value == "Test");
             }

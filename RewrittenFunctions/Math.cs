@@ -11,6 +11,12 @@ namespace RewrittenFunctions
     /// </summary>
     public static class Math
     {
+        public const float E = 2.71828183f;
+
+        public const float PI = 3.14159265f;
+
+        public const float Tau = 6.283185307f;
+
         #region Methods
 
         /// <summary>
@@ -24,7 +30,7 @@ namespace RewrittenFunctions
 
             int currentNumber;
 
-            for (int i = binary.Length; i >= 0; i--)
+            for (int i = binary.Length - 1; i >= 0; i--)
             {
                 currentNumber = binary[i] - '0';
                 if (currentNumber < 0 || currentNumber > 1)
@@ -32,7 +38,10 @@ namespace RewrittenFunctions
                     throw new Exception("The input string is not a valid binary number");
                 }
 
-                result += Math.PowRF(currentNumber, binary.Length - i);
+                if (currentNumber == 1)
+                {
+                    result += PowRF(2, binary.Length - (i + 1));
+                }
             }
 
             return result;
