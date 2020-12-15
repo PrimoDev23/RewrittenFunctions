@@ -9,7 +9,7 @@ namespace RewrittenFunctions
 {
     public static class Strings
     {
-        #region Methods
+        #region Contains
 
         /// <summary>
         /// Check if a string contains an other string (ignoring case)
@@ -34,45 +34,9 @@ namespace RewrittenFunctions
             return input.IndexOf(value, stringComparison) >= 0;
         }
 
-        /// <summary>
-        /// Check if a string ends with an other string
-        /// </summary>
-        /// <param name="input">Input-string</param>
-        /// <param name="value">EndsWith-string</param>
-        /// <returns></returns>
-        public static bool EndsWithRF(this string input, string value)
-        {
-            if (value.Length > input.Length)
-            {
-                throw new ArgumentException("The value-string can't be longer than the string to check");
-            }
-            return EndsWithFull(input, value);
-        }
+        #endregion Contains
 
-        /// <summary>
-        /// Check if a string ends with an other string (ignores casing)
-        /// </summary>
-        /// <param name="input">Input-string</param>
-        /// <param name="value">EndsWith-string</param>
-        /// <returns></returns>
-        public static bool EndsWithIgnoreCaseRF(this string input, string value)
-        {
-            if (value.Length > input.Length)
-            {
-                throw new ArgumentException("The value-string can't be longer than the string to check");
-            }
-            return EndsWithIgnoreCaseFull(input, value);
-        }
-
-        /// <summary>
-        /// Check if a string is filled
-        /// </summary>
-        /// <param name="input">Input-string</param>
-        /// <returns></returns>
-        public static bool IsFilledRF(this string input)
-        {
-            return input?.Length > 0;
-        }
+        #region StartsWith
 
         /// <summary>
         /// Check if a string starts with an other string
@@ -82,11 +46,33 @@ namespace RewrittenFunctions
         /// <returns></returns>
         public static bool StartsWithRF(this string input, string value)
         {
+            //check if value is longer than input
             if (value.Length > input.Length)
             {
                 throw new ArgumentException("The value-string can't be longer than the string to check");
             }
+
+            //This makes it possible to inline this function and do the check above inlined
             return StartsWithFull(input, value);
+        }
+
+        /// <summary>
+        /// Main method for StartsWith
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static bool StartsWithFull(string input, string value)
+        {
+            //Iterate through value and check single chars
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (input[i] != value[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -97,11 +83,55 @@ namespace RewrittenFunctions
         /// <returns></returns>
         public static bool StartsWithIgnoreCaseRF(this string input, string value)
         {
+            //check if value is longer than input
             if (value.Length > input.Length)
             {
                 throw new ArgumentException("The value-string can't be longer than the string to check");
             }
+
+            //This makes it possible to inline this function and do the check above inlined
             return StartsWithIgnoreCaseFull(input, value);
+        }
+
+        /// <summary>
+        /// Main method for StartsWithIgnoreCase
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static bool StartsWithIgnoreCaseFull(string input, string value)
+        {
+            //Iterate through value and check single chars
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (!input[i].Equals(value[i], true))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        #endregion StartsWith
+
+        #region EndsWith
+
+        /// <summary>
+        /// Check if a string ends with an other string
+        /// </summary>
+        /// <param name="input">Input-string</param>
+        /// <param name="value">EndsWith-string</param>
+        /// <returns></returns>
+        public static bool EndsWithRF(this string input, string value)
+        {
+            //check if value is longer than input
+            if (value.Length > input.Length)
+            {
+                throw new ArgumentException("The value-string can't be longer than the string to check");
+            }
+
+            //This makes it possible to inline this function and do the check above inlined
+            return EndsWithFull(input, value);
         }
 
         /// <summary>
@@ -112,6 +142,7 @@ namespace RewrittenFunctions
         /// <returns></returns>
         private static bool EndsWithFull(string input, string end)
         {
+            //Iterate through value and check single chars
             int inputLastIndex = input.Length - 1;
             int endLastIndex = end.Length - 1;
             for (int i = 0; i < end.Length; i++)
@@ -125,6 +156,24 @@ namespace RewrittenFunctions
         }
 
         /// <summary>
+        /// Check if a string ends with an other string (ignores casing)
+        /// </summary>
+        /// <param name="input">Input-string</param>
+        /// <param name="value">EndsWith-string</param>
+        /// <returns></returns>
+        public static bool EndsWithIgnoreCaseRF(this string input, string value)
+        {
+            //check if value is longer than input
+            if (value.Length > input.Length)
+            {
+                throw new ArgumentException("The value-string can't be longer than the string to check");
+            }
+
+            //This makes it possible to inline this function and do the check above inlined
+            return EndsWithIgnoreCaseFull(input, value);
+        }
+
+        /// <summary>
         /// Main method for EndsWith
         /// </summary>
         /// <param name="input"></param>
@@ -132,6 +181,7 @@ namespace RewrittenFunctions
         /// <returns></returns>
         private static bool EndsWithIgnoreCaseFull(string input, string end)
         {
+            //Iterate through value and check single chars
             int inputLastIndex = input.Length - 1;
             int endLastIndex = end.Length - 1;
             for (int i = 0; i < end.Length; i++)
@@ -144,40 +194,16 @@ namespace RewrittenFunctions
             return true;
         }
 
-        /// <summary>
-        /// Main method for StartsWith
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool StartsWithFull(string input, string value)
-        {
-            for (int i = 0; i < value.Length; i++)
-            {
-                if (input[i] != value[i])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        #endregion EndsWith
 
         /// <summary>
-        /// Main method for StartsWithIgnoreCase
+        /// Check if a string is filled
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="value"></param>
+        /// <param name="input">Input-string</param>
         /// <returns></returns>
-        private static bool StartsWithIgnoreCaseFull(string input, string value)
+        public static bool IsFilledRF(this string input)
         {
-            for (int i = 0; i < value.Length; i++)
-            {
-                if (!input[i].Equals(value[i], true))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return input?.Length > 0;
         }
 
         private static bool Equals(this char c, char comp, bool ignoreCase)
@@ -208,7 +234,5 @@ namespace RewrittenFunctions
             //tred making a CharacterMap but that is a frustrating work
             return c.ToString().Equals(comp.ToString(), StringComparison.OrdinalIgnoreCase);
         }
-
-        #endregion Methods
     }
 }

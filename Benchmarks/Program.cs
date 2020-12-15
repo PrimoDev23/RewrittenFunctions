@@ -2,8 +2,8 @@
 #define STRINGS
 
 using BenchmarkDotNet.Running;
-using Benchmarks.Tests;
 using System;
+using Benchmarks.Tests;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
