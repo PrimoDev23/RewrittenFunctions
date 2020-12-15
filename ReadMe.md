@@ -1,7 +1,7 @@
 ## Rewritten Functions
 
 This library is for everyone who cares about micro-optimisations and also wants some extensions for other .NET classes.
-It contains different optimizations (extensions), for example:
+It contains different optimizations (and extensions), for example:
 
  - String helpers (e.g. ContainsIgnoreCase)
  - Math helpers (e.g. Faculty)
