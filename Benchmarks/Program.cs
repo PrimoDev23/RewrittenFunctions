@@ -1,5 +1,6 @@
-﻿//#define EXTREE
-#define STRINGS
+﻿#define EXTREE
+//#define STRINGS
+//#define MATHS
 
 using BenchmarkDotNet.Running;
 using System;
@@ -22,6 +23,10 @@ namespace Benchmarks
 
 #if STRINGS
             BenchmarkRunner.Run<Strings>();
+#endif //STRINGS
+
+#if MATHS
+            BenchmarkRunner.Run<Maths>();
 #endif //STRINGS
 
             Console.ReadKey();

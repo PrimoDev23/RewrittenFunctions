@@ -1,4 +1,5 @@
 ﻿#define VARS
+#define METHODS
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
@@ -130,6 +131,7 @@ namespace Benchmarks.Tests
 #endif //VARS
 
 #if METHODS
+
         [Benchmark]
         public void MethodReflection()
         {
@@ -157,6 +159,7 @@ namespace Benchmarks.Tests
                 MethodExp(test, i.ToString());
             }
         }
+
 #endif //METHODS
     }
 }

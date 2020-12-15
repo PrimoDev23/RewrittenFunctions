@@ -1,5 +1,7 @@
-﻿#define StartsWith
-#define EndsWith
+﻿#define STARTSWITH
+#define ENDSWITH
+#define ISFILLED
+#define CONTAINS
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
@@ -19,7 +21,7 @@ namespace Benchmarks.Tests
     {
         public string testString = "ThisIsABenchmarkString. It should be long for testing purposes.";
 
-#if StartsWith
+#if STARTSWITH
 
         [Benchmark]
         public void DefaultStartsWith()
@@ -51,9 +53,9 @@ namespace Benchmarks.Tests
             }
         }
 
-#endif //StartsWith
+#endif //STARTSWITH
 
-#if EndsWith
+#if ENDSWITH
 
         [Benchmark]
         public void DefaultEndsWith()
@@ -85,6 +87,54 @@ namespace Benchmarks.Tests
             }
         }
 
-#endif //EndsWith
+#endif //ENDSWITH
+
+#if ISFILLED
+
+        [Benchmark]
+        public void IsNotNullOrEmpty()
+        {
+            bool res = false;
+            for (int i = 0; i < 100; i++)
+            {
+                res = !string.IsNullOrEmpty(testString);
+            }
+        }
+
+        [Benchmark]
+        public void RFIsFilled()
+        {
+            bool res = false;
+            for (int i = 0; i < 100; i++)
+            {
+                res = testString.IsFilledRF();
+            }
+        }
+
+#endif //ISFILLED
+
+#if CONTAINS
+
+        [Benchmark]
+        public void DefaultContainsIgnoreCase()
+        {
+            bool res = false;
+            for (int i = 0; i < 100; i++)
+            {
+                res = testString.ToLower().Contains("should");
+            }
+        }
+
+        [Benchmark]
+        public void RFContainsIgnoreCase()
+        {
+            bool res = false;
+            for (int i = 0; i < 100; i++)
+            {
+                res = testString.ContainsIgnoreCaseRF("should");
+            }
+        }
+
+#endif //CONTAINS
     }
 }
