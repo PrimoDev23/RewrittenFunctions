@@ -196,15 +196,16 @@ namespace RewrittenFunctions
 
         #endregion EndsWith
 
-        /// <summary>
-        /// Check if a string is filled
-        /// </summary>
-        /// <param name="input">Input-string</param>
-        /// <returns></returns>
-        public static bool IsFilledRF(this string input)
-        {
-            return input?.Length > 0;
-        }
+        ///// <summary>
+        ///// Check if a string is filled
+        ///// </summary>
+        ///// <param name="input">Input-string</param>
+        ///// <returns></returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool IsFilledRF(this string input)
+        //{
+        //    return input?.Length > 0;
+        //}
 
         private static bool Equals(this char c, char comp, bool ignoreCase)
         {

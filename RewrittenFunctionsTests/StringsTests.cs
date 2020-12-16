@@ -3,6 +3,7 @@ using RewrittenFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,13 +45,13 @@ namespace RewrittenFunctions.Tests
             Assert.IsTrue("IKnowThisIsEndsWith".EndsWithIgnoreCaseRF("eNdSWiTh"));
         }
 
-        [TestMethod()]
-        public void IsFilledRFTest()
-        {
-            Assert.IsTrue("rtfdhsfghdfhf".IsFilledRF());
-            Assert.IsFalse("".IsFilledRF());
-            Assert.IsFalse(((string)null).IsFilledRF());
-        }
+        //[TestMethod()]
+        //public void IsFilledRFTest()
+        //{
+        //    Assert.IsTrue("rtfdhsfghdfhf".IsFilledRF());
+        //    Assert.IsFalse("".IsFilledRF());
+        //    Assert.IsFalse(((string)null).IsFilledRF());
+        //}
 
         [TestMethod()]
         public void StartsWithRFTest()

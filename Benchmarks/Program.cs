@@ -1,5 +1,5 @@
-﻿#define EXTREE
-//#define STRINGS
+﻿//#define EXTREE
+#define STRINGS
 //#define MATHS
 
 using BenchmarkDotNet.Running;

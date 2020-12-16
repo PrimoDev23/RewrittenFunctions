@@ -104,7 +104,7 @@ namespace RewrittenFunctions
         {
             number = 0;
 
-            if (!s.IsFilledRF())
+            if (!(s?.Length > 0))
             {
                 return false;
             }

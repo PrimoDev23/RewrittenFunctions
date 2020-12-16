@@ -1,22 +1,25 @@
-﻿#define STARTSWITH
-#define ENDSWITH
+﻿//#define STARTSWITH
+//#define ENDSWITH
 #define ISFILLED
-#define CONTAINS
+//#define CONTAINS
 
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using BenchmarkDotNet.Jobs;
 using RewrittenFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Benchmarks.Tests
 {
     [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.Net462, baseline: true)]
+    [SimpleJob(RuntimeMoniker.Net472, baseline: true)]
     [RPlotExporter]
+    [InliningDiagnoser(false, true)]
     public class Strings
     {
         public string testString = "ThisIsABenchmarkString. It should be long for testing purposes.";
@@ -91,24 +94,37 @@ namespace Benchmarks.Tests
 
 #if ISFILLED
 
+        public string empty = "";
+
+        //[Benchmark]
+        //public void IsNotNullOrEmpty()
+        //{
+        //    bool res;
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        res = !string.IsNullOrEmpty(empty);
+        //    }
+        //}
+
         [Benchmark]
-        public void IsNotNullOrEmpty()
+        public void check()
         {
-            bool res = false;
+            RFIsFilled();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void RFIsFilled()
+        {
+            bool res;
             for (int i = 0; i < 100; i++)
             {
-                res = !string.IsNullOrEmpty(testString);
+                res = Filled(empty);
             }
         }
 
-        [Benchmark]
-        public void RFIsFilled()
+        public bool Filled(string test)
         {
-            bool res = false;
-            for (int i = 0; i < 100; i++)
-            {
-                res = testString.IsFilledRF();
-            }
+            return test?.Length > 0;
         }
 
 #endif //ISFILLED
