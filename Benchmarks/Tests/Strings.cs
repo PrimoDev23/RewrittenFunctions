@@ -20,6 +20,7 @@ namespace Benchmarks.Tests
     [SimpleJob(RuntimeMoniker.Net472, baseline: true)]
     [RPlotExporter]
     [InliningDiagnoser(false, true)]
+    [DisassemblyDiagnoser(1, true, true)]
     public class Strings
     {
         public string testString = "ThisIsABenchmarkString. It should be long for testing purposes.";
@@ -106,20 +107,22 @@ namespace Benchmarks.Tests
         //    }
         //}
 
+        [Arguments("notEmpty")]
+        [Arguments("")]
+        [Arguments(null)]
         [Benchmark]
-        public void check()
+        public void checkManual(string s)
         {
-            RFIsFilled();
+            bool res = s?.Length > 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void RFIsFilled()
+        [Arguments("notEmpty")]
+        [Arguments("")]
+        [Arguments(null)]
+        [Benchmark]
+        public void checkFunction(string s)
         {
-            bool res;
-            for (int i = 0; i < 100; i++)
-            {
-                res = Filled(empty);
-            }
+            bool res = Filled(s);
         }
 
         public bool Filled(string test)
