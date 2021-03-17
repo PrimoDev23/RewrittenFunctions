@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RewrittenFunctions.ExTrees.Tests
+namespace RewrittenFunctions.Tests
 {
     [TestClass()]
     public class GetSetTests
@@ -34,6 +34,27 @@ namespace RewrittenFunctions.ExTrees.Tests
         }
 
         [TestMethod()]
+        public void GetGetterObjectPropertyTest()
+        {
+            try
+            {
+                object model = new TestModel()
+                {
+                    TestProperty = "Test"
+                };
+
+                var Getter = GetterSetter<object, object>.GetGetterProperty("TestProperty", model.GetType());
+                string value = Getter(model).ToString();
+
+                Assert.IsTrue(value == "Test");
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
         public void GetGetterFieldTest()
         {
             try
@@ -47,6 +68,27 @@ namespace RewrittenFunctions.ExTrees.Tests
                 string value = Getter(model);
 
                 Assert.IsTrue(value == model.TestField);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
+        public void GetGetterObjectFieldTest()
+        {
+            try
+            {
+                object model = new TestModel()
+                {
+                    TestField = "Test"
+                };
+
+                var Getter = GetterSetter<object, string>.GetGetterField("TestField", model.GetType());
+                string value = Getter(model);
+
+                Assert.IsTrue(value == "Test");
             }
             catch
             {
@@ -101,10 +143,10 @@ namespace RewrittenFunctions.ExTrees.Tests
         {
             try
             {
-                ITest test = new TestModel();
+                ITest model = new TestModel();
 
-                Func<ITest, string, string> Method = (Func<ITest, string, string>)DynamicMethods<ITest>.GetMethod("TestMethod");
-                string ret = Method(test, "Test");
+                var Method = (Func<ITest, string, string>)DynamicMethods<ITest>.GetMethod("TestMethod");
+                string ret = Method(model, "Test");
 
                 Assert.IsTrue(ret == "Test123");
             }

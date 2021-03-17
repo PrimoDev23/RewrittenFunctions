@@ -15,7 +15,7 @@ namespace RewrittenFunctions.ExpressionTree
     public static class DynamicMethods<T>
     {
         /// <summary>
-        /// Get the delegate for a method in a class type
+        /// Get the delegate for a method in a known class type
         /// </summary>
         /// <param name="methodName">Methods name</param>
         /// <returns></returns>

@@ -16,5 +16,10 @@ namespace RewrittenFunctionsTests.Models
         {
             return parameter + "123";
         }
+
+        public string TestMethod(string parameter)
+        {
+            return parameter + "123";
+        }
     }
 }
