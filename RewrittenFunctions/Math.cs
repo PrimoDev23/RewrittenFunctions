@@ -130,6 +130,22 @@ namespace RewrittenFunctions
             return true;
         }
 
+        /// <summary>
+        /// Checks if a number is between 0 and another number
+        /// </summary>
+        /// <param name="end">end number (included)</param>
+        /// <param name="value">value to check</param>
+        /// <returns>1 if between else 0</returns>
+        public static int NumberBetween0And(int end, int value)
+        {
+            return -((end + (~value + 1)) >> 31 & 1) - (value >> 31 & 1) + 1;
+        }
+
+        public static int GreaterThan(int value, int compareTo)
+        {
+            return (compareTo + (~value + 1)) >> 31 & 1;
+        }
+
         #endregion Methods
     }
 }
