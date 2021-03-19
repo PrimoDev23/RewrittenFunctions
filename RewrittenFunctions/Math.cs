@@ -153,7 +153,7 @@ namespace RewrittenFunctions
         /// <returns>1 if between else 0</returns>
         public static int NumberBetween0And(int end, int value)
         {
-            return -((end + (~value + 1)) >> 31 & 1) - (value >> 31 & 1) + 1;
+            return (value >> 31) + ((end - value) >> 31) + 1;
         }
 
         public static int GreaterThan(int value, int compareTo)
