@@ -1,7 +1,8 @@
 ﻿//#define POW
 //#define TRYPARSE
 //#define MODLONGINT
-#define NUMBERBETWEENZEROAND
+//#define NUMBERBETWEENZEROAND
+#define MAX
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
@@ -126,5 +127,40 @@ namespace Benchmarks.Tests
         }
 
 #endif //NUMBERBETWEENZEROAND
+        
+#if MAX
+
+        int[] randoms = new int[100];
+
+        public void Setup()
+        {
+            Random r = new Random();
+            for (int i = 0; i < 100; i++)
+            {
+                randoms[i] = r.Next(-5, 10);
+            }
+        }
+
+        [Benchmark(Baseline = true)]
+        public void MaxNormal()
+        {
+            int sum = 0;
+            for (int i = 0; i < randoms.Length; i++)
+            {
+                sum += Math.Max(5, randoms[i]);
+            }
+        }
+
+        [Benchmark]
+        public void MaxManual()
+        {
+            int sum = 0;
+            for (int i = 0; i < randoms.Length; i++)
+            {
+                sum += RewrittenFunctions.Math.Max(5, randoms[i]);
+            }
+        }
+
+#endif //MAX
     }
 }
