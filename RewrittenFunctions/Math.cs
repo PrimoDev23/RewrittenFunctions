@@ -161,9 +161,14 @@ namespace RewrittenFunctions
             return (compareTo + (~value + 1)) >> 31 & 1;
         }
 
-        public static int Max(int x, int y)
+        public static int Min(int x, int y)
         {
             return x ^ ((x ^ y) & -(((x - y) >> 31) + 1));
+        }
+
+        public static int Max(int x, int y)
+        {
+            return y ^ ((x ^ y) & -(((x - y) >> 31) + 1));
         }
 
         #endregion Methods

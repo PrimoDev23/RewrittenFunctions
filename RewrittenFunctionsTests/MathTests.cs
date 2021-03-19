@@ -58,5 +58,25 @@ namespace RewrittenFunctions.Tests
             Assert.AreEqual(Math.GreaterThan(5, 3), 1);
             Assert.AreEqual(Math.GreaterThan(3, 5), 0);
         }
+
+        [TestMethod()]
+
+        public void MaxTest()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.AreEqual(Math.Max(i, 50), System.Math.Max(i, 50));
+            }
+        }
+
+        [TestMethod()]
+
+        public void MinTest()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.AreEqual(Math.Min(i, 50), System.Math.Min(i, 50));
+            }
+        }
     }
 }
