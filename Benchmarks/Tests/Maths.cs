@@ -1,6 +1,7 @@
-﻿#define POW
-#define TRYPARSE
-#define MODLONGINT
+﻿//#define POW
+//#define TRYPARSE
+//#define MODLONGINT
+#define NUMBERBETWEENZEROAND
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,5 +90,41 @@ namespace Benchmarks.Tests
         }
 
 #endif //MODLONGINT
+        
+#if NUMBERBETWEENZEROAND
+
+        [Benchmark]
+        public void NumberBetween0And5Normal()
+        {
+            Random r = new Random();
+            int sum = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                sum += NumberBetween0AndIf(5, r.Next(-5, 10));
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private int NumberBetween0AndIf(int end, int value)
+        {
+            if (value < 0 || value > end)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        [Benchmark]
+        public void NumberBetween0And5Bitwise()
+        {
+            Random r = new Random();
+            int sum = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                sum += RewrittenFunctions.Math.NumberBetween0And(5, r.Next(-5, 10));
+            }
+        }
+
+#endif //NUMBERBETWEENZEROAND
     }
 }

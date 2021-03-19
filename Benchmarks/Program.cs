@@ -1,6 +1,6 @@
 ﻿//#define EXTREE
-#define STRINGS
-//#define MATHS
+//#define STRINGS
+#define MATHS
 
 using BenchmarkDotNet.Running;
 using System;
