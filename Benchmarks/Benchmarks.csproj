@@ -282,6 +282,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ExpressionTrees.cs" />
+    <Compile Include="Tests\LINQReplacer.cs" />
     <Compile Include="Tests\Maths.cs" />
     <Compile Include="Tests\Strings.cs" />
   </ItemGroup>

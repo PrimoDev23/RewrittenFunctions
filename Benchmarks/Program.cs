@@ -1,6 +1,7 @@
 ﻿//#define EXTREE
 //#define STRINGS
-#define MATHS
+//#define MATHS
+#define LINQ
 
 using BenchmarkDotNet.Running;
 using System;
@@ -27,7 +28,11 @@ namespace Benchmarks
 
 #if MATHS
             BenchmarkRunner.Run<Maths>();
-#endif //STRINGS
+#endif //MATHS
+
+#if LINQ
+            BenchmarkRunner.Run<Tests.LINQReplacer>();
+#endif //LINQ
 
             Console.ReadKey();
         }

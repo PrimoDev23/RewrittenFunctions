@@ -57,6 +57,7 @@ namespace RewrittenFunctions.Tests
         {
             Assert.AreEqual(Math.GreaterThan(5, 3), 1);
             Assert.AreEqual(Math.GreaterThan(3, 5), 0);
+            Assert.AreEqual(Math.GreaterThan(0, 0), 0);
         }
 
         [TestMethod()]

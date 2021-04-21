@@ -79,6 +79,7 @@
     <Compile Include="ColorHelper.cs" />
     <Compile Include="ExpressionTree\DynamicMethods.cs" />
     <Compile Include="ExpressionTree\GetterSetter.cs" />
+    <Compile Include="LINQReplacer.cs" />
     <Compile Include="SmartArray.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

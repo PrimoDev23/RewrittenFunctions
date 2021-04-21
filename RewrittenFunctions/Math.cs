@@ -158,7 +158,7 @@ namespace RewrittenFunctions
 
         public static int GreaterThan(int value, int compareTo)
         {
-            return (compareTo + (~value + 1)) >> 31 & 1;
+            return (compareTo - value) >> 31 & 1;
         }
 
         public static int Min(int x, int y)
