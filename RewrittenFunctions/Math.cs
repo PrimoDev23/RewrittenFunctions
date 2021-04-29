@@ -171,6 +171,139 @@ namespace RewrittenFunctions
             return y ^ ((x ^ y) & -(((x - y) >> 31) + 1));
         }
 
+        /// <summary>
+        /// Get the least common multiple of two numbers
+        /// </summary>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns>LCM of A and B</returns>
+        public static long getLCM(long a, long b)
+        {
+            return a * b / getGCD(a, b);
+        }
+
+        /// <summary>
+        /// Get the greatest common divider from two numbers
+        /// </summary>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns>GCD of A and B</returns>
+        public static long getGCD(long a, long b)
+        {
+            //It's not possible if one of the numbers is smaller than one
+            if (a < 1 || b < 1)
+            {
+                throw new ArgumentException("Values can't be less than 1");
+            }
+
+            //Euclidian algorithm
+            long remainder;
+            do
+            {
+                remainder = a % b;
+                a = b;
+                b = remainder;
+            } while (b != 0); //Return if the remainder is 0
+
+            return a;
+        }
+
+        /// <summary>
+        /// Get primes in a specific range (2 * n + 1)
+        /// </summary>
+        /// <param name="n">Range to use for the sieve</param>
+        /// <returns>Primes</returns>
+        public static long[] SieveOfSundram(long n)
+        {
+            long[] numbers = new long[n];
+
+            //Init the array
+            for (int i = 0; i < n; i++)
+            {
+                numbers[i] = i;
+            }
+
+            long removed = 0;
+
+            long j;
+            long index;
+            for (long i = 1; i < numbers.Length - 1; i++)
+            {
+                j = i;
+                //Get the number that should be removed
+                while ((index = i + j + 2 * i * j) <= numbers.Length - 2)
+                {
+                    /* 1 + 1 + 2 * 1 * 1 = 4
+                     * 1 + 2 + 2 * 1 * 2 = 7
+                     * 1 + 3 + 2 * 3 = 10
+                     * 1 + 4 + 2 * 4 = 13
+                     * and so on 
+                     */
+
+                    if (numbers[index] != -1)
+                    {
+                        removed++;
+                    }
+
+                    numbers[index] = -1;
+                    j++;
+                }
+            }
+
+            long[] res = new long[n - removed];
+
+            index = 0;
+            for (long i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] != -1)
+                {
+                    res[index++] = 2 * numbers[i] + 1;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Compute (a² % m)
+        /// </summary>
+        /// <param name="a">The base value</param>
+        /// <param name="exp">The exponent</param>
+        /// <param name="mod">The modulus</param>
+        /// <returns></returns>
+        public static long ExponentMod(long a, long exp, long mod)
+        {
+            long res = a;
+            for (long i = 2; i <= exp; i++)
+            {
+                //Multiply
+                res *= a;
+
+                //And retrieve the modulus
+                res %= mod;
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Inverse modulo
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static long modInverse(long a, long m)
+        {
+            for (int i = 0; i < m; i++)
+            {
+                if (((a % m) * (i % m)) % m == 1)
+                {
+                    return i;
+                }
+            }
+            return 1;
+        }
+
         #endregion Methods
     }
 }
