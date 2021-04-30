@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -177,9 +178,9 @@ namespace RewrittenFunctions
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
         /// <returns>LCM of A and B</returns>
-        public static long getLCM(long a, long b)
+        public static long GetLCM(long a, long b)
         {
-            return a * b / getGCD(a, b);
+            return a * b / GetGCD(a, b);
         }
 
         /// <summary>
@@ -188,7 +189,7 @@ namespace RewrittenFunctions
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
         /// <returns>GCD of A and B</returns>
-        public static long getGCD(long a, long b)
+        public static long GetGCD(long a, long b)
         {
             //It's not possible if one of the numbers is smaller than one
             if (a < 1 || b < 1)
@@ -292,16 +293,40 @@ namespace RewrittenFunctions
         /// <param name="a"></param>
         /// <param name="m"></param>
         /// <returns></returns>
-        public static long modInverse(long a, long m)
+        public static long ModInverse(long a, long m)
         {
-            for (int i = 0; i < m; i++)
+            if (m == 1) return 0;
+            long m0 = m;
+            (long x, long y) = (1, 0);
+
+            while (a > 1)
             {
-                if (((a % m) * (i % m)) % m == 1)
-                {
-                    return i;
-                }
+                long q = a / m;
+                (a, m) = (m, a % m);
+                (x, y) = (y, x - q * y);
             }
-            return 1;
+            return x < 0 ? x + m0 : x;
+        }
+
+        /// <summary>
+        /// Inverse modulo
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static BigInteger ModInverse(BigInteger a, BigInteger m)
+        {
+            if (m == 1) return 0;
+            BigInteger m0 = m;
+            (BigInteger x, BigInteger y) = (1, 0);
+
+            while (a > 1)
+            {
+                BigInteger q = a / m;
+                (a, m) = (m, a % m);
+                (x, y) = (y, x - q * y);
+            }
+            return x < 0 ? x + m0 : x;
         }
 
         #endregion Methods
